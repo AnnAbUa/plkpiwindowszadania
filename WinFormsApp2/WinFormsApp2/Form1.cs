@@ -21,35 +21,101 @@ namespace WinFormsApp2
 
         private void button1_Click(object sender, EventArgs e)
         {
+            eightStuff = false;
+            bigLetter = false;
+            smallLetter = false;
+            number = false;
+            specialStuff = false;
+
             string password = textBox1.Text;
+            text = "";
+
             foreach (char c in password)
             {
                 if (char.IsUpper(c))
                 {
                     bigLetter = true;
-                    text += "\nBig letter: " + bigLetter;
                 }
+
                 if (char.IsLower(c))
                 {
                     smallLetter = true;
-                    text += "\nSmall letter: " + smallLetter;
                 }
-                if (specialChars.Contains(c))
-                {
-                    specialStuff = true; number = true;
-                    text += "\nSpecial character: " + specialStuff;
-                }
+
                 if (char.IsDigit(c))
                 {
                     number = true;
-                    text += "\nNumber: " + number;
+                }
+
+                if (specialChars.Contains(c))
+                {
+                    specialStuff = true;
                 }
             }
+
             if (password.Length >= 8)
-            {
                 eightStuff = true;
-                text += "\n8 characters: " + eightStuff;
+
+            if (!eightStuff)
+            {
+                text += "Not 8 symbols\n";
             }
+            if (!bigLetter)
+            {
+                text += "No big lettet\n";
+            }
+            if (!smallLetter)
+            {
+                text += "No small letter\n";
+            }
+            if (!number)
+            {
+                text += "No number \n";
+            }
+            if (!specialStuff)
+            {
+                text += "No special symbol\n";
+            }
+
+            int score = 0;
+            if (eightStuff)
+            {
+                score++;
+            }
+            if (bigLetter)
+            {
+                score++;
+            }
+            if (smallLetter)
+            {
+                score++;
+            }
+            if (number)
+            {
+                score++;
+            }
+            if (specialStuff)
+            {
+                score++;
+            }
+
+            string level = "";
+
+            if (score <= 2)
+            {
+                level = "Bad";
+            }
+            else if (score <= 4)
+            {
+                level = "Ok";
+            }
+            else
+            {
+                level = "Good";
+            }
+
+            text += "\nLevel: " + level;
+
             label1.Text = text;
         }
     }
