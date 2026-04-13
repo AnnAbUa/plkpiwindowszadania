@@ -8,7 +8,7 @@ namespace WinFormsApp2
         public bool number = false;
         public bool specialStuff = false;
         char[] specialChars = { '@', '#', '$', '%', '^', '&' };
-        public string text= "";
+        public string text = "";
         public Form1()
         {
             InitializeComponent();
@@ -54,7 +54,9 @@ namespace WinFormsApp2
             }
 
             if (password.Length >= 8)
+            {
                 eightStuff = true;
+            }
 
             if (!eightStuff)
             {
@@ -62,7 +64,7 @@ namespace WinFormsApp2
             }
             if (!bigLetter)
             {
-                text += "No big lettet\n";
+                text += "No big letter\n";
             }
             if (!smallLetter)
             {
@@ -103,20 +105,34 @@ namespace WinFormsApp2
 
             if (score <= 2)
             {
-                level = "Bad";
+                level = "Weak";
             }
             else if (score <= 4)
             {
-                level = "Ok";
+                level = "Medium";
             }
             else
             {
-                level = "Good";
+                level = "Strong";
             }
 
             text += "\nLevel: " + level;
 
             label1.Text = text;
+            try
+            {
+                if (score == 5)
+                {
+                    using (StreamWriter writer = new StreamWriter("result.txt"))
+                    {
+                        writer.WriteLine(password);
+                    }
+                }
+                }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error writing to file: " + ex.Message);
+            }
         }
     }
 }
